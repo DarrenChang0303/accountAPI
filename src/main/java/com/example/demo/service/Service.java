@@ -43,13 +43,14 @@ public class Service {
 //        String pattern = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])/";
 //        String pattern = ".*[0-9]{1,}.*";
 //        String pattern = ".*(.*[0-9]{1,}.*).*(.*[A-Z]{1,}.*).*(.*[a-z]{1,}.*)";
-//        String pattern = "(.*[a-z][0-9]{1,}.*)";
-        String pattern1 = "(.*[a-z]{1,}.*)";
-        String pattern2 = "(.*[A-Z]{1,}.*)";
-        String pattern3 = "(.*[0-9]{1,}.*)";
+            String patternString = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
+        Pattern pattern = Pattern.compile(patternString);
+//        String pattern1 = "(.*[a-z]{1,}.*)";
+//        String pattern2 = "(.*[A-Z]{1,}.*)";
+//        String pattern3 = "(.*[0-9]{1,}.*)";
 
         if (password.length() >= 8 && password.length() <= 32) {
-            if (Pattern.matches(pattern1, password) && Pattern.matches(pattern2, password) && Pattern.matches(pattern3, password)) {
+            if (pattern.matcher(password).matches()) {
                 return true;
             } else {
                 System.out.println("password content wrong");
@@ -60,6 +61,7 @@ public class Service {
             return false;
         }
 //        return Pattern.matches(pattern, password);
+//        return pattern1.matcher(password).matches();
     }
 
     public void accountVerify(String username, String password) {
