@@ -24,4 +24,20 @@ public class User {
         this.userName = userName;
         this.passWord = passWord;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+//        super.equals(obj);
+        if(obj==null){
+            return false;
+        }
+        if(!(obj instanceof User)){
+            return false;
+        }
+        User other = (User)obj;
+        if(other.passWord==null||other.userName==null){
+            return false;
+        }
+        return this.userName.equals(other.userName)&& this.passWord.equals(other.passWord);
+    }
 }
