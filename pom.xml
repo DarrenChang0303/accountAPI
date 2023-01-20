@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.springboot_tmp</groupId>
-	<artifactId>TJL6_RMQ</artifactId>
+	<artifactId>accountAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot_tmp-1</name>
 	<description>Demo project for Spring Boot</description>
