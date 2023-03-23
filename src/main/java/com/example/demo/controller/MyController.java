@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,11 +14,25 @@ import java.util.Map;
 public class MyController {
     @Autowired
     Service service;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @GetMapping("/test")
     public String test() {
         System.out.println("Hi it's on console");
         return "Hi it's on web screen";
+    }
+
+
+    @GetMapping("/testdb")
+    public String testDatabase() {
+        try {
+            String query = "SELECT 1";
+            int result = jdbcTemplate.queryForObject(query, Integer.class);
+            return "Connected to database successfully";
+        } catch (Exception e) {
+            return "Failed to connect to database: " + e.getMessage();
+        }
     }
 
     /**

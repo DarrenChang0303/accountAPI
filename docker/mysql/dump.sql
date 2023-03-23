@@ -23,4 +23,4 @@
   );
 
  insert into guest_table(table_number, space) values(1, 10);
- insert into user_info(name,password) values('test','test');
+-- insert into user_info(name,password) values('test','test');

@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.example.demo.repository.userRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.003 s <<< FAILURE! - in com.example.demo.repository.userRepositoryTest
+testGetAllUsers  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.example.demo.repository.userRepositoryTest.testGetAllUsers(userRepositoryTest.java:32)
+
+findName  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.example.demo.repository.userRepositoryTest.findName(userRepositoryTest.java:26)
+
