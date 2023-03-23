@@ -1,19 +1,21 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.Service;
+import com.example.demo.entity.UserInfo;
+import com.example.demo.service.MyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
 public class MyController {
     @Autowired
-    Service service;
+    MyService myService;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -39,8 +41,9 @@ public class MyController {
      *Show all account
      */
     @GetMapping("/show")
-    public ArrayList show() {
-        return service.accountList();
+    public List<UserInfo> show() {
+//        return myService.accountList();
+        return myService.accountListJPA();
     }
 
     /**
@@ -50,7 +53,7 @@ public class MyController {
     @ResponseBody
     public Map<String,String> createAccount(@RequestBody Map<String, String> objectMap){
         Map<String,String> jsonResponse = new HashMap<>();
-        if(service.accountCreate(objectMap.get("username"),objectMap.get("password"))){
+        if(myService.accountCreate(objectMap.get("username"),objectMap.get("password"))){
             jsonResponse.put("success","create account success");
         }else {
             jsonResponse.put("false","create account fail");
@@ -66,7 +69,7 @@ public class MyController {
         Map<String,String> jsonResponse = new HashMap<>();
         System.out.println("Verify Id");
         System.out.println(objectMap.get("username")+objectMap.get("password"));
-        if(service.accountVerify(objectMap.get("username"),objectMap.get("password"))){
+        if(myService.accountVerify(objectMap.get("username"),objectMap.get("password"))){
             jsonResponse.put("success","verify id success");
         }else {
             jsonResponse.put("fail","verify id fail");

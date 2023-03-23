@@ -1,16 +1,27 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.User;
+import com.example.demo.entity.UserInfo;
+import com.example.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-@org.springframework.stereotype.Service
-public class Service {
+@Service
+public class MyService {
 
+//    @Autowired
+//    private UserInfo userInfo;
+    @Autowired
+    private UserRepository userRepository;
     Map<String, String> userMap;
     ArrayList<User> userArray = new ArrayList<User>();
+    ArrayList<UserInfo> userInfoArray = new ArrayList<UserInfo>();
 
     public ArrayList accountList() {
         if (userArray.size() != 0) {
@@ -21,6 +32,9 @@ public class Service {
         } else {
             return null;
         }
+    }
+    public List<UserInfo> accountListJPA(){
+        return userRepository.findAll();
     }
 
     public boolean accountCreate(String username, String password) {
@@ -33,6 +47,12 @@ public class Service {
             pass = false;
         }
         return pass;
+    }
+    public void accountCreateJPA(String name,String password){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName(name);
+        userInfo.setPassword(password);
+        userRepository.save(userInfo);
     }
 
     public boolean checkPassWord(String username, String password) {
