@@ -17,4 +17,8 @@ public class UserInfo {
     @Column(name = "password")
     private String password;
 
+    public UserInfo(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }

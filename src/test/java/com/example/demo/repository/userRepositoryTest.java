@@ -18,14 +18,18 @@ class userRepositoryTest {
 
     @Test
     public void testFindName() {
-//        UserInfo userInfo = new UserInfo();
-//        userInfo.setName("JpaTest");
-//        userInfo.setPassword("JpaPassword");
-//        userRepository.save(userInfo);
+        UserInfo userInfo = new UserInfo("JpaTest","JpaPassword");
+        userRepository.save(userInfo);
         List<UserInfo> userList = userRepository.findAll();
-        Assertions.assertEquals(2, userList.size());
+        Assertions.assertEquals(1, userList.size());
         UserInfo savedUser = userList.get(0);
         Assertions.assertEquals("JpaTest", savedUser.getName());
         Assertions.assertEquals("JpaPassword", savedUser.getPassword());
+    }
+
+    @Test
+    public void  testFindByName(){
+        System.out.println(userRepository.existsByName("JpaTest"));
+        System.out.println(userRepository.existsByName("Jpa"));
     }
 }

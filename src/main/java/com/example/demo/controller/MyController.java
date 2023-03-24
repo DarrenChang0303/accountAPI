@@ -49,31 +49,21 @@ public class MyController {
     /**
      *Create account
      */
-    @PostMapping("/register")
+    @PostMapping("/registerJPA")
     @ResponseBody
-    public Map<String,String> createAccount(@RequestBody Map<String, String> objectMap){
-        Map<String,String> jsonResponse = new HashMap<>();
-        if(myService.accountCreate(objectMap.get("username"),objectMap.get("password"))){
-            jsonResponse.put("success","create account success");
-        }else {
-            jsonResponse.put("false","create account fail");
-        }
+    public Map<String,Object> createAccountJpa(@RequestBody Map<String, String> objectMap){
+        Map<String,Object> jsonResponse = myService.accountCreateJPA(objectMap.get("username"),objectMap.get("password"));
         return jsonResponse;
     }
 
     /**
      *log in
      */
-    @PostMapping("/login")
-    public Map<String,String> verifyId(@RequestBody Map<String, String> objectMap) {
-        Map<String,String> jsonResponse = new HashMap<>();
+    @PostMapping("/loginJPA")
+    public Map<String,Object> verifyIdJPA(@RequestBody Map<String, String> objectMap) {
+//        Map<String,Object> jsonResponse = myService.accountVerifyJPA(objectMap.get("username"),objectMap.get("password"));
         System.out.println("Verify Id");
         System.out.println(objectMap.get("username")+objectMap.get("password"));
-        if(myService.accountVerify(objectMap.get("username"),objectMap.get("password"))){
-            jsonResponse.put("success","verify id success");
-        }else {
-            jsonResponse.put("fail","verify id fail");
-        };
-        return jsonResponse;
+        return myService.accountVerifyJPA(objectMap.get("username"),objectMap.get("password"));
     }
 }
