@@ -21,4 +21,7 @@ public class UserInfo {
         this.name = name;
         this.password = password;
     }
+    public UserInfo(){
+
+    }
 }

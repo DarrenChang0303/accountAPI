@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,7 @@ public class MyController {
      */
     @PostMapping("/registerJPA")
     @ResponseBody
-    public Map<String,Object> createAccountJpa(@RequestBody Map<String, String> objectMap){
+    public Map<String,Object> createAccountJpa(@RequestBody Map<String, String> objectMap) throws NoSuchAlgorithmException {
         Map<String,Object> jsonResponse = myService.accountCreateJPA(objectMap.get("username"),objectMap.get("password"));
         return jsonResponse;
     }
@@ -60,7 +61,7 @@ public class MyController {
      *log in
      */
     @PostMapping("/loginJPA")
-    public Map<String,Object> verifyIdJPA(@RequestBody Map<String, String> objectMap) {
+    public Map<String,Object> verifyIdJPA(@RequestBody Map<String, String> objectMap) throws NoSuchAlgorithmException {
 //        Map<String,Object> jsonResponse = myService.accountVerifyJPA(objectMap.get("username"),objectMap.get("password"));
         System.out.println("Verify Id");
         System.out.println(objectMap.get("username")+objectMap.get("password"));

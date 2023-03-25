@@ -3,8 +3,8 @@ version: '3.7'
 services:
     app:
       build:
-        context: .
-        dockerfile: docker/Dockerfile
+#        context: ./docker
+        dockerfile: Dockerfile
       restart: unless-stopped
       container_name: accountapi
       depends_on:

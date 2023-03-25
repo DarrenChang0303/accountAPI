@@ -18,7 +18,7 @@
   CREATE TABLE `user_info` (
     `id` int auto_increment,
     `name` varchar(64),
-    `password` varchar(64),
+    `password` varchar(256),
     PRIMARY KEY (`id`)
   );
 

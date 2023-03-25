@@ -15,7 +15,6 @@ class userRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private MyService myService;
-
     @Test
     public void testFindName() {
         UserInfo userInfo = new UserInfo("JpaTest","JpaPassword");
@@ -26,7 +25,6 @@ class userRepositoryTest {
         Assertions.assertEquals("JpaTest", savedUser.getName());
         Assertions.assertEquals("JpaPassword", savedUser.getPassword());
     }
-
     @Test
     public void  testFindByName(){
         System.out.println(userRepository.existsByName("JpaTest"));

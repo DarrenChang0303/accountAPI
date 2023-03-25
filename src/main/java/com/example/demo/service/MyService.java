@@ -3,9 +3,12 @@ package com.example.demo.service;
 import com.example.demo.entity.User;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.utils.PasswordHashing;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -18,11 +21,12 @@ public class MyService {
         return userRepository.findAll();
     }
 
-    public Map<String, Object> accountCreateJPA(String username, String password) {
+    public Map<String, Object> accountCreateJPA(String username, String password) throws NoSuchAlgorithmException {
         Map<String, Object> resultMap = checkProcess(username, password);
         if (resultMap.get("success") == null) {
             resultMap.put("success", true);
             resultMap.put("reason", "Create user successful");
+            password = PasswordHashing.hashPassword(password);
             UserInfo user = new UserInfo(username,password);
             userRepository.save(user);
             return resultMap;
@@ -58,13 +62,13 @@ public class MyService {
         return resultMap;
     }
 
-    public Map<String, Object> accountVerifyJPA(String username, String password) {
+    public Map<String, Object> accountVerifyJPA(String username, String password) throws NoSuchAlgorithmException {
         Map<String, Object> resultMap = new HashMap<>();
         String userTemp = username;
         if (!userRepository.existsByName(username)) {
             resultMap.put("success", false);
             resultMap.put("reason", "Wrong user name");
-        } else if (userRepository.findByName(username).get(0).getPassword() == password) {
+        } else if (PasswordHashing.verifyPassword(userRepository.findByName(username).get(0).getPassword(),password)) {
             resultMap.put("success", true);
             resultMap.put("reason", "Log in successful");
         }
