@@ -34,9 +34,6 @@ services:
     restart: always
     ports:
       - 3306:3306
-    #    volumes:
-    #        - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
-    ##        - "D:\\IntelliJ-workspace\\accountAPI\\docker\\mysql:/docker-entrypoint-initdb.d"
     environment:
       MYSQL_DATABASE: java_to_dev_app_db
       MYSQL_USER: java_to_dev
@@ -45,14 +42,12 @@ services:
     networks:
       - my-network
   api_service:
-    build: .
-#    image: borischen0203/my-app-image
+    image: darren190196/account-api
     restart: always
     ports:
       - 8080:8080
     depends_on:
       - mysql_db
-#    command: sh -c './wait-for mysql_db:3306 -- npm start'
     environment:
       DB_URL: jdbc:mysql://db:3306/java_to_dev_app_db
       DB_USERNAME: java_to_dev
