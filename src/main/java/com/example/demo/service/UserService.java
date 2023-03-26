@@ -40,7 +40,6 @@ public class UserService {
     }
 
     private UserResponse checkProcess(String username, String password) {
-//        Map<String, Object> resultMap = new HashMap<String, Object>();
         String patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$";
         if (userRepository.existsByName(username)) {
             return new UserResponse(400, Message.USERNAME_EXISTS);
