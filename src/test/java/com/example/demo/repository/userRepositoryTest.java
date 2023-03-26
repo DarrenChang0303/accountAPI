@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.UserInfo;
-import com.example.demo.service.MyService;
+import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ class userRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private MyService myService;
+    private UserService userService;
     @Test
     public void testFindName() {
         UserInfo userInfo = new UserInfo("JpaTest","JpaPassword");
