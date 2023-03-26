@@ -1,27 +1,66 @@
-version: '3.7'
+#version: '3.7'
+#
+#services:
+#    app:
+#      build:
+##        context: ./docker
+#        dockerfile: Dockerfile
+#      restart: unless-stopped
+#      container_name: accountapi
+#      depends_on:
+#        - mysql
+#      ports:
+#        - "8080:8080"
+#    mysql:
+#      image: mysql:5.7
+#      restart: unless-stopped
+#      container_name: javadockerDB
+#      environment:
+#        MYSQL_ROOT_PASSWORD: password
+#        MYSQL_DATABASE: testDB
+#      #      MYSQL_USER: user
+#      #      MYSQL_PASSWORD: password
+#      ports:
+#        - "3306:3306/tcp"
+#      volumes:
+#  #      - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+#        - "D:\\IntelliJ-workspace\\accountAPI\\docker\\mysql:/docker-entrypoint-initdb.d"
+
+version: "3.7"
 
 services:
-    app:
-      build:
-#        context: ./docker
-        dockerfile: Dockerfile
-      restart: unless-stopped
-      container_name: accountapi
-      depends_on:
-        - mysql
-      ports:
-        - "8080:8080"
-    mysql:
-      image: mysql:5.7
-      restart: unless-stopped
-      container_name: javadockerDB
-      environment:
-        MYSQL_ROOT_PASSWORD: password
-        MYSQL_DATABASE: testDB
-      #      MYSQL_USER: user
-      #      MYSQL_PASSWORD: password
-      ports:
-        - "3306:3306/tcp"
-      volumes:
-  #      - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
-        - "D:\\IntelliJ-workspace\\accountAPI\\docker\\mysql:/docker-entrypoint-initdb.d"
+  mysql_db:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3306:3306
+    #    volumes:
+    #        - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+    ##        - "D:\\IntelliJ-workspace\\accountAPI\\docker\\mysql:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_DATABASE: java_to_dev_app_db
+      MYSQL_USER: java_to_dev
+      MYSQL_PASSWORD: nE5kMc7JCGNqwDQM
+      MYSQL_ROOT_PASSWORD: nE5kMc7JCGNqwDQN
+    networks:
+      - my-network
+  api_service:
+    build: .
+#    image: borischen0203/my-app-image
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql_db
+#    command: sh -c './wait-for mysql_db:3306 -- npm start'
+    environment:
+      DB_URL: jdbc:mysql://db:3306/java_to_dev_app_db
+      DB_USERNAME: java_to_dev
+      DB_PASSWORD: nE5kMc7JCGNqwDQM
+    networks:
+       - my-network
+networks:
+  my-network:
+    driver: bridge
+
+

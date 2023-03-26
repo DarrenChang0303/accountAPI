@@ -58,19 +58,6 @@ public class UserService {
         return new UserResponse(200);
     }
 
-//    public Map<String, Object> accountVerify(String username, String password) throws NoSuchAlgorithmException {
-//        Map<String, Object> resultMap = new HashMap<>();
-//        String userTemp = username;
-//        if (!userRepository.existsByName(username)) {
-//            resultMap.put("success", false);
-//            resultMap.put("reason", "Wrong user name");
-//        } else if (PasswordService.verifyPassword(userRepository.findByName(username).get(0).getPassword(), password)) {
-//            resultMap.put("success", true);
-//            resultMap.put("reason", "Log in successful");
-//        }
-//        return resultMap;
-//    }
-
     public UserResponse accountVerify(String userName, String password) {
         Optional<UserInfo> optionalUser = userRepository.findByName(userName);
         if (!optionalUser.isPresent()) {
